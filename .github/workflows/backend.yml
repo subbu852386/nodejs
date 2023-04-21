@@ -1,0 +1,25 @@
+name: Continuous Integration and Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  node_app:
+    runs-on: backend
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+        
+      - name: Delete pm2 modules
+        run: pm2 delete all
+        
+      - name: start action
+        run: pm2 start index.js
+
+      # - name: react artifacts build
+      #   run: npm run-script build
+
+#       - name: moving code files
+#         run: sudo cp -r /home/ubuntu/actions-runner/_work/infra_github_actions/infra_github_actions/* /var/www/react
